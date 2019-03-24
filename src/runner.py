@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
-
 from db import Database
 
 import trash_gcp_detector as trash_detector
 import face_comparer_aws as face_comparer
 import face_detection as face_detector
+import trash_recognizer as trash_picker
 
 trash_type = ""
 person_uid = -1
@@ -13,7 +12,7 @@ db = Database()
 
 def find_perfect_match(sources, n_targets, similarityThreshold=70.0):
 	matched_sources = []
-	targetFileDir = 'assets/target_images/target'
+	targetFileDir = '../assets/target_images/target'
 
 	if (len(sources) != 0):
 		# Start comparing a source with all targets 
@@ -31,9 +30,11 @@ def find_perfect_match(sources, n_targets, similarityThreshold=70.0):
 
 				if (match_confidence >= similarityThreshold):
 					matched_sources.append(sources[source_index])
+				elif (match_confidence <= 35.0):
+					print ("you don't seem to be registered. Stop me! ")
 
 			# Check if we have found the perfect_match, return it
-			if (len(matched_sources) == 1):
+			if (len(matched_sources) == 1 or similarityThreshold+5 >= 90):
 				return matched_sources[0]
 			# Otherwise repeat for all the matched sources
 			else:
@@ -43,7 +44,7 @@ def find_perfect_match(sources, n_targets, similarityThreshold=70.0):
 def initiate_trash_type_detection():
 	global trash_type
 
-	##### TODO: Call opencv function to store trashimage
+	trash_picker.take_trash_picture()
 	trashFilePath = '../assets/trash_image/trash_image.jpg'
 	trash_type = trash_detector.init(trashFilePath)
 
@@ -61,20 +62,13 @@ def initiate_face_detection(n_targets = 30, similarityThreshold = 70):
 	face_detector.get_N_Face_Caps(n_targets)
 	matched_object = find_perfect_match(source_objects, n_targets, similarityThreshold)
 
-	person_uid = source_objects.index(matched_object)
+	pid = source_objects.index(matched_object)
+	person_uid = source_objects[pid][0]
 
 
 def init():
 
 	initiate_trash_type_detection()
-	initiate_face_detection()
+	initiate_face_detection(n_targets=10)
 	db.addPersonPoint(person_uid)
 
-
-if __name__ == "__main__":
-
-	import register as reg
-	binary_object = reg.take_picture()
-	db.insertPerson("mississippi state", "ajinkya", "nawarkar", binary_object, 0)
-
-	init()

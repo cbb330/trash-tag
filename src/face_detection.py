@@ -32,7 +32,7 @@ def get_N_Face_Caps(n):
         if face_detected:
             cv2.imwrite('assets/target_images/target' + str(num) + '.jpg', frame)
             num = num + 1
-            print(num)
+            print("target: ", num)
 
     # When everything done, release the capture
     cap.release()

@@ -78,6 +78,7 @@ def init(file_path):
 	trash_labels = get_labels(file_path)
 	trash_type = get_type(trash_labels)
 
+	print(str(trash_type.lower()))
 	return str(trash_type.lower())
 
 

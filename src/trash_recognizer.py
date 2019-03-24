@@ -1,22 +1,17 @@
 import cv2
 
-def take_picture():
+def take_trash_picture():
 	cap = cv2.VideoCapture(0)
 
 	while(True):
 	    ret, frame = cap.read()
 	    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
 
-	    cv2.imshow('Register', rgb)
-	    if cv2.waitKey(1) & 0xFF == ord('q'):
-	    	img_name = '../assets/frame.jpg'
+	    cv2.imshow('Trash Please', rgb)
+	    if cv2.waitKey(1) & 0xFF == ord('t'):
+	    	img_name = '../assets/trash_image/trash_image.jpg'
 	    	out = cv2.imwrite(img_name, frame)
 	    	break
 
 	cap.release()
 	cv2.destroyAllWindows()
-
-	with open(img_name, 'rb') as binaryfile :
-	    myArr = binaryfile.read()
-
-	return myArr
