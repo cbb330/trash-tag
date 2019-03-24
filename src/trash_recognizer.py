@@ -9,7 +9,7 @@ def take_trash_picture():
 
 	    cv2.imshow('Trash Please', rgb)
 	    if cv2.waitKey(1) & 0xFF == ord('t'):
-	    	img_name = 'assets/trash_image/trash_image.jpg'
+	    	img_name = '../assets/trash_image/trash_image.jpg'
 	    	out = cv2.imwrite(img_name, frame)
 	    	break
 
