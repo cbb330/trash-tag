@@ -10,7 +10,7 @@ def get_N_Face_Caps(n):
     cap = cv2.VideoCapture(0)
 
     num = 0 
-    while num<10:
+    while (num < n):
         face_detected = False
         # Capture frame-by-frame
         ret, frame = cap.read()
