@@ -13,15 +13,15 @@ class Database:
         self._con = pymysql.connect(host='127.0.0.1', user=self._db_un, password=self._db_pw, db='trashtag')
 
     def __del__(self):
-        self.disconnect();
+        self.disconnect()
     
     def connect(self):
         self._con = pymysql.connect(host='127.0.0.1', user=self._db_un, password=self._db_pw, db='trashtag')
 
     def disconnect(self):
         if self._con:
-            self._con.commit();
-            self._con.close();
+            self._con.commit()
+            self._con.close()
 
     def getItems(self):
         cursor = self._con.cursor()
@@ -31,13 +31,49 @@ class Database:
         # retrieve cursor results
         res = cursor.fetchall()
 
+        cursor.close()
+
+        return res
+    
+    def getPerson(self, f_name, l_name):
+        cursor = self._con.cursor()
+        name = (f_name, l_name)
+
+        sql = "SELECT * FROM person WHERE f_name=%s and l_name=%s"
+
+        cursor.execute(sql, name)
+        
+        res = cursor.fetchall()
+
+        cursor.close()
         return res
     
     def insertItem(self, type):
-        mycursor = self._con.cursor()
+        cursor = self._con.cursor()
 
         sql = "INSERT INTO item (type) VALUES (%s)"
-        mycursor.execute(sql, type)
+        cursor.execute(sql, type)
 
+        cursor.close()
         self._con.commit()
 
+    def insertPerson(self, organization, f_name, l_name, img, points=0):
+        cursor = self._con.cursor()
+        args = (organization, f_name, l_name, img, points)
+        
+        sql = "INSERT INTO person (organization, f_name, l_name, img, points) VALUES(%s, %s, %s, %s, %s)"
+        cursor.execute(sql, args)
+
+        cursor.close()
+        self._con.commit()
+    
+    def addPersonPoint(self, f_name, l_name):
+        cursor = self._con.cursor()
+        name = (f_name, l_name)
+
+        sql = "UPDATE person SET points = points + 1 WHERE f_name=%s and l_name=%s"
+        
+        cursor.execute(sql, name)
+
+        cursor.close()
+        self._con.commit()
