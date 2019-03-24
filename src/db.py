@@ -61,19 +61,28 @@ class Database:
         cursor = self._con.cursor()
         args = (organization, f_name, l_name, img, points)
         
-        sql = "INSERT INTO person (organization, f_name, l_name, img, points) VALUES(%s, %s, %s, %s, %s)"
+        sql = "INSERT INTO person (organization, f_name, l_name, img, points) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(sql, args)
+
+        cursor.close()
+        self._con.commit()
+
+    def insertFaceAndHolding(self, confidence, date, img, oid, pid):
+        cursor = self._con.cursor()
+        args = (confidence, date, img, oid, pid)
+
+        sql = "INSERT INTO face_and_holding (confidence, date, img, oid, pid) VALUES (%s, %s, %s, %s, %s)"
         cursor.execute(sql, args)
 
         cursor.close()
         self._con.commit()
     
-    def addPersonPoint(self, f_name, l_name):
+    def addPersonPoint(self, pid):
         cursor = self._con.cursor()
-        name = (f_name, l_name)
 
-        sql = "UPDATE person SET points = points + 1 WHERE f_name=%s and l_name=%s"
+        sql = "UPDATE person SET points = points + 1 WHERE pid=%s"
         
-        cursor.execute(sql, name)
+        cursor.execute(sql, pid)
 
         cursor.close()
         self._con.commit()
