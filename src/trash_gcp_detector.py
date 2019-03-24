@@ -70,13 +70,15 @@ def get_type(labels, Trash=Trash):
 	
 	return (trash_type.name)
 
-def init():
+def init(file_path):
+	'''
+	    This function receives trash image object and Returns trash type
+	'''
 
-	file_path = '../assets/trash_image.jpg'
 	trash_labels = get_labels(file_path)
 	trash_type = get_type(trash_labels)
 
-	return str(trash_type)
+	return str(trash_type.lower())
 
 
     
