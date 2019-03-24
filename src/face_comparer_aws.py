@@ -15,14 +15,16 @@ def get_face_comparison_confidence(sourceFile, targetFile, similarityThreshold=7
                                   SourceImage={'Bytes': imageSource},
                                   TargetImage={'Bytes': imageTarget.read()})
 
+    similarity = 0.0
+
     for faceMatch in response['FaceMatches']:
         position = faceMatch['Face']['BoundingBox']
-        similarity = str(faceMatch['Similarity'])
+        similarity = faceMatch['Similarity']
         print('The face at ' +
                str(position['Left']) + ' ' +
                str(position['Top']) +
-               ' matches with ' + similarity + '% confidence')
+               ' matches with ' + str(similarity) + '% confidence')
 
     # imageSource.close()
     imageTarget.close()      
-    return faceMatch['Similarity']   
+    return similarity
