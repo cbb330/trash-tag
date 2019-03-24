@@ -3,6 +3,11 @@
 1. Add credentials to virtualenv/activate and init local test db using GCP cli
   https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test
   
+  ```
+  ./cloud_sql_proxy -instances=crimsonhacks19:us-central1:trash-tag-dev=tcp:3306
+  mysql -u root -p --host 127.0.0.1 --port 3306
+  ```
+  
 2. Use ```pip install --upgrade google-cloud-vision``` to install google cloud vision client libraries.
 
 3. Use below to add Google API credentials to activate cloud requests
