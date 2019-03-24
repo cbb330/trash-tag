@@ -28,3 +28,4 @@ def get_face_comparison_confidence(sourceFile, targetFile, similarityThreshold=7
     # imageSource.close()
     imageTarget.close()      
     return similarity
+

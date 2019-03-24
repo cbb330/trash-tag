@@ -66,12 +66,9 @@ def initiate_face_detection(n_targets = 30, similarityThreshold = 70):
 	person_uid = source_objects[pid][0]
 
 
-
 def init():
 
 	initiate_trash_type_detection()
 	initiate_face_detection(n_targets=10)
 	db.addPersonPoint(person_uid)
 
-
-	

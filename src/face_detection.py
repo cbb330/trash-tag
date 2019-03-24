@@ -30,7 +30,7 @@ def get_N_Face_Caps(n):
         text_color = (0,255,0)
 
         if face_detected:
-            cv2.imwrite('../assets/target_images/target' + str(num) + '.jpg', frame)
+            cv2.imwrite('assets/target_images/target' + str(num) + '.jpg', frame)
             num = num + 1
             print("target: ", num)
 
