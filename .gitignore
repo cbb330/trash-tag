@@ -1,4 +1,6 @@
 .venv/
-cloud_sql_proxy
-.json
+cloud_sql_proxyz
+.vscode
 __pycache__
+assets/targetimages/
+.json

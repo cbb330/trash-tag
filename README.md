@@ -16,3 +16,4 @@
 4. Use ```./runner.py``` script to start serving detection and scoring system after giving it executable permissions 
 
 
+4. Install opencv
