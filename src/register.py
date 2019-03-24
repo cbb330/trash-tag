@@ -1,35 +1,22 @@
 import cv2
-from Database import db
 
 def take_picture():
+	cap = cv2.VideoCapture(0)
 
-	cam = cv2.VideoCapture(0)
+	while(True):
+	    ret, frame = cap.read()
+	    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
 
-	cv2.namedWindow("test")
+	    cv2.imshow('frame', rgb)
+	    if cv2.waitKey(1) & 0xFF == ord('q'):
+	    	img_name = 'assets/frame.jpg'
+	    	out = cv2.imwrite(img_name, frame)
+	    	break
 
-	while True:
-	    ret, frame = cam.read()
-	    cv2.imshow("test", frame)
-	    if not ret:
-	        break
-	    k = cv2.waitKey(1)
-
-	    if k%256 == 27:
-	        # ESC pressed
-	        print("Escape hit, closing...")
-	        break
-	    elif k%256 == 32:
-	        # SPACE pressed
-	        img_name = "../assets/opencv_frame.png"
-	        cv2.imwrite(img_name, frame)
-	        print("{} written!".format(img_name))
-	        img_counter += 1
-
-	cam.release()
-
+	cap.release()
 	cv2.destroyAllWindows()
 
-	with open(img_name, "rb") as binaryfile :
-	    myArr = bytearray(binaryfile.read())
+	with open(img_name, 'rb') as binaryfile :
+	    myArr = binaryfile.read()
 
 	return myArr

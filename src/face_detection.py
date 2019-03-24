@@ -3,7 +3,7 @@ import cv2
 import time
 
 #import the cascade for face detection
-face_cascade = cv2.CascadeClassifier('/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
 
 def get_N_Face_Caps(n):
     # Access the webcam (every webcam has a number, the default is 0)
@@ -30,8 +30,9 @@ def get_N_Face_Caps(n):
         text_color = (0,255,0)
 
         if face_detected:
-            cv2.imwrite('../assets/target_images/target' + str(num) + '.jpg', frame)
+            cv2.imwrite('assets/target_images/target' + str(num) + '.jpg', frame)
             num = num + 1
+            print(num)
 
     # When everything done, release the capture
     cap.release()

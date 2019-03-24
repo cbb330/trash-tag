@@ -9,10 +9,10 @@ def get_face_comparison_confidence(sourceFile, targetFile, similarityThreshold=7
     client=boto3.client('rekognition')
 
     imageSource=sourceFile
-    imageTarget=targetFile
+    imageTarget=open(targetFile,'rb')
 
     response=client.compare_faces(SimilarityThreshold=similarityThreshold,
-                                  SourceImage={'Bytes': imageSource.read()},
+                                  SourceImage={'Bytes': imageSource},
                                   TargetImage={'Bytes': imageTarget.read()})
 
     for faceMatch in response['FaceMatches']:
@@ -23,5 +23,6 @@ def get_face_comparison_confidence(sourceFile, targetFile, similarityThreshold=7
                str(position['Top']) +
                ' matches with ' + similarity + '% confidence')
 
-    imageSource.close()
-    imageTarget.close()         
+    # imageSource.close()
+    imageTarget.close()      
+    return faceMatch['Similarity']   
