@@ -1,2 +1,4 @@
 .venv/
 cloud_sql_proxy
+.json
+__pycache__
