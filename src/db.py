@@ -47,6 +47,18 @@ class Database:
 
         cursor.close()
         return res
+
+    def getPersons(self):
+        cursor = self._con.cursor()
+        
+        sql = "SELECT * FROM person"
+
+        cursor.execute(sql)
+        
+        res = cursor.fetchall()
+
+        cursor.close()
+        return res
     
     def insertItem(self, type):
         cursor = self._con.cursor()
@@ -86,3 +98,5 @@ class Database:
 
         cursor.close()
         self._con.commit()
+
+        print("hurray")
