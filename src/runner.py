@@ -30,6 +30,8 @@ def find_perfect_match(sources, n_targets, similarityThreshold=70.0):
 
 				if (match_confidence >= similarityThreshold):
 					matched_sources.append(sources[source_index])
+				elif (match_confidence <= 35.0):
+					print ("you don't seem to be registered. Stop me! ")
 
 			# Check if we have found the perfect_match, return it
 			if (len(matched_sources) == 1 or similarityThreshold+5 >= 90):
@@ -60,7 +62,9 @@ def initiate_face_detection(n_targets = 30, similarityThreshold = 70):
 	face_detector.get_N_Face_Caps(n_targets)
 	matched_object = find_perfect_match(source_objects, n_targets, similarityThreshold)
 
-	person_uid = source_objects.index(matched_object)
+	pid = source_objects.index(matched_object)
+	person_uid = source_objects[pid][0]
+
 
 
 def init():
