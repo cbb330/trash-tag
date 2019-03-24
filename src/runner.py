@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from db import Database
-from PIL import Image
+
 import trash_gcp_detector as trash_detector
 import face_comparer_aws as face_comparer
 import face_detection as face_detector
@@ -26,7 +26,7 @@ def find_perfect_match(sources, n_targets, similarityThreshold=70.0):
 			# Find all sources that have match_confidence levels above current threshold
 			for source_index in range(len(sources)):
 				sourceFile = sources[source_index][3] 
-
+        
 				match_confidence = face_comparer.get_face_comparison_confidence(sourceFile, targetFile, similarityThreshold)
 
 				if (match_confidence >= similarityThreshold):

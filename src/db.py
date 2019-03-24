@@ -79,7 +79,7 @@ class Database:
         cursor.close()
         self._con.commit()
 
-    def insertFaceAndHolding(self, confidence, date, img, oid, pid):
+    def insertFaceAndHolding(self, confidence, date, oid, pid, img=""):
         cursor = self._con.cursor()
         args = (confidence, date, img, oid, pid)
 
