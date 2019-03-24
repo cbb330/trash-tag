@@ -13,7 +13,7 @@
 
 4. [Install boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html#installation) and configure IMA user account using AWS CLI to start facial recognition API. 
  
-4. Use ```./runner.py``` script to start serving detection and scoring system after giving it executable permissions 
+4. Use ```python runner.py``` script to start serving detection and scoring system
 
 
 4. Install opencv
