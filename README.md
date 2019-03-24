@@ -9,3 +9,4 @@
   ```echo 'export GOOGLE_APPLICATION_CREDENTIALS=./key.json' >> ~/.bashrc ```
    ```source ~/.bashrc```
 
+4. Install opencv
