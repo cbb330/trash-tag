@@ -2,23 +2,15 @@
 
 import trash_gcp_detector as trash_detector
 import face_comparer_aws as face_comparer
+import face_detection as face_detector
 from db import Database
 
-##### TODO: Call opencv function to store trashimage
-trashFilePath = '../assets/trash_image/trash_image.jpg'
-trash_type = trash_detector.init(trashFilePath)
+trash_type = ""
+person_uid = -1
 
-list_sources = [] ########## Db API function call to get all source images for all users
-
-# Initialize forward variables
-similarityThreshold = 70
-n_targets = 30
-targetFileDir = '../assets/target_images/'
-##### TODO: Call opencv function to store target images
-
-
-def find_perfect_match(sources, similarityThreshold):
+def find_perfect_match(sources, similarityThreshold=70):
 	matched_sources = []
+	targetFileDir = '../assets/target_images/'
 
 	if (len(sources) != 0):
 		# Start comparing a source with all targets 
@@ -43,8 +35,37 @@ def find_perfect_match(sources, similarityThreshold):
 				find_perfect_match(matched_sources, similarityThreshold+5)
 
 
+def initiate_trash_type_detection():
+	global trash_type
 
-find_perfect_match(list_sources, similarityThreshold)
+	##### TODO: Call opencv function to store trashimage
+	trashFilePath = '../assets/trash_image/trash_image.jpg'
+	trash_type = trash_detector.init(trashFilePath)
+
+
+def get_sources():
+	source_objects = [] ########## Db API function call to get all source images for all users
+	return source_objects
+
+
+def initiate_face_detection(n_targets = 30, similarityThreshold = 70):
+	global person_uid
+
+	source_objects = get_sources()
+	# Capture 30 targetFiles for face recognition
+	face_detector.get_N_Face_Caps(n_targets)
+	matched_object = find_perfect_match(source_objects, similarityThreshold)
+
+	person_uid = source_objects.index(matched_object)
+
+
+
+def init():
+
+	initiate_trash_type_detection()
+	initiate_face_detection()
+	
+
 ###### TODO: Add point for the person in the Database
 db = Database()
 # db.insertItem(trash_type)
